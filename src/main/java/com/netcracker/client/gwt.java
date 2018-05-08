@@ -49,29 +49,60 @@ public class gwt implements EntryPoint {
 
         rootPanel.add(verticalPanel);
 
+//////////////////////////////   CellTable   //////////////////////////////////////////////
+        final CellTable<Book> table = new CellTable<Book>();
+        table.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
+        // add columns
+        TextColumn<Book> id = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getId();
+            }
+        };
+        table.addColumn(id, "ID");
+        TextColumn<Book> author = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getAuthor();
+            }
+        };
+        table.addColumn(author, "Author");
+        TextColumn<Book> title = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getTitle();
+            }
+        };
+        table.addColumn(title, "Title");
+        TextColumn<Book> pages = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getPagesCount();
+            }
+        };
+        table.addColumn(pages, "Pages");
+
+
+
+        // Add a selection model to handle user selection.
+        final SingleSelectionModel<Book> selectionModel = new SingleSelectionModel<Book>();
+        table.setSelectionModel(selectionModel);
+
+
+        verticalPanel.add(table);
+
         HelloClient client = GWT.create(HelloClient.class);
-
-
-        client.getAll(new MethodCallback<List<Hello>>() {
-
-            @Override
-            public void onSuccess(Method method, List<Hello> response) {
-               /* for (Hello hello : response) {
-                    verticalPanel.add(new Label("Hello" + hello.getName()));
-                }*/
-            }
-
-            @Override
-            public void onFailure(Method method, Throwable throwable) {
-                throw new RuntimeException("call failed");
-            }
-        });
 
         client.getBooks(new MethodCallback<List<Book>>() {
 
             @Override
             public void onSuccess(Method method, List<Book> books) {
                 gwt.bookList = books;
+
+
+                table.setRowCount(bookList.size(), true);
+                table.setRowData(0, bookList);
+
             }
 
             @Override
@@ -83,41 +114,17 @@ public class gwt implements EntryPoint {
 
 
 // Create a CellTable.
-        final CellTable<Book> table = new CellTable<Book>();
-
-        table.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
-
-        table.setEmptyTableWidget(new Label("No data"));
-
-        TextColumn<Book> id = new TextColumn<Book>() {
-            @Override
-            public String getValue(Book book) {
-                return "" + book.getId();
-            }
-        };
-        table.addColumn(id, "id");
-
-        TextColumn<Book> author = new TextColumn<Book>() {
-            @Override
-            public String getValue(Book book) {
-                return "" + book.getAuthor();
-            }
-        };
-        table.addColumn(author, "author");
-
-        // Add a selection model to handle user selection.
-        final SingleSelectionModel<Book> selectionModel = new SingleSelectionModel<Book>();
 
 
-        
+
+
+
+
 
         refreshButton.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent clickEvent) {
-                table.setSelectionModel(selectionModel);
-                table.setRowCount(bookList.size(), true);
-                table.setRowData(0, bookList);
-                verticalPanel.add(table);
+
                 table.redraw();
                 // Push the data into the widget.
 
