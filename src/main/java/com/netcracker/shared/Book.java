@@ -3,6 +3,9 @@ package com.netcracker.shared;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Book {
 
     private Integer id;

@@ -19,6 +19,8 @@ public class HelloResource {
 
     private HashMap<String, Hello> database;
 
+    private List<Book> bookList;
+
     public HelloResource() {
         database = new HashMap<>();
         Hello helloRonan = new Hello("1", "Ronan");
@@ -44,7 +46,8 @@ public class HelloResource {
     @Produces("application/json")
     @Path("/books")
     public List<Book> getBooks() {
-        return ParseXML.getBooks();
+        bookList = ParseXML.getBooks();
+        return bookList;
     }
 
 }

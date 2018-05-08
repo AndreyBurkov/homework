@@ -14,13 +14,13 @@ import java.util.List;
 public interface HelloClient extends RestService {
 
     @GET
-    public void getAll(MethodCallback<List<Hello>> hellos);
+    void getAll(MethodCallback<List<Hello>> hellos);
 
     @GET
     @Path("{id}")
-    public void getHello(@PathParam("id") String id, MethodCallback<Hello> hello);
+    void getHello(@PathParam("id") String id, MethodCallback<Hello> hello);
 
     @GET
     @Path("/books")
-    public void getBooks(MethodCallback<List<Book>> books);
+    void getBooks(MethodCallback<List<Book>> books);
 }

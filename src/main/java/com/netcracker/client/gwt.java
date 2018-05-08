@@ -49,7 +49,7 @@ public class gwt implements EntryPoint {
 
         rootPanel.add(verticalPanel);
 
-//////////////////////////////   CellTable   //////////////////////////////////////////////
+//////////////////////////////   CellTable   ///////////////////////////////////////////////////////////////////////////
         final CellTable<Book> table = new CellTable<Book>();
         table.setKeyboardSelectionPolicy(HasKeyboardSelectionPolicy.KeyboardSelectionPolicy.ENABLED);
         // add columns
@@ -81,8 +81,20 @@ public class gwt implements EntryPoint {
             }
         };
         table.addColumn(pages, "Pages");
-
-
+        TextColumn<Book> publish = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getPublishDate();
+            }
+        };
+        table.addColumn(publish, "PublishDate");
+        TextColumn<Book> date = new TextColumn<Book>() {
+            @Override
+            public String getValue(Book book) {
+                return "" + book.getDateInBase();
+            }
+        };
+        table.addColumn(date, "Date In Base");
 
         // Add a selection model to handle user selection.
         final SingleSelectionModel<Book> selectionModel = new SingleSelectionModel<Book>();
@@ -98,8 +110,6 @@ public class gwt implements EntryPoint {
             @Override
             public void onSuccess(Method method, List<Book> books) {
                 gwt.bookList = books;
-
-
                 table.setRowCount(bookList.size(), true);
                 table.setRowData(0, bookList);
 
@@ -110,15 +120,7 @@ public class gwt implements EntryPoint {
                 throw new RuntimeException("call failed");
             }
         });
-/////////////
-
-
-// Create a CellTable.
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         refreshButton.addClickHandler(new ClickHandler() {
@@ -133,7 +135,6 @@ public class gwt implements EntryPoint {
                 }*/
             }
         });
-///////////////////////////////////
 
 
     }
