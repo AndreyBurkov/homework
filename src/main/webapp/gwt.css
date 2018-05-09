@@ -1,11 +1,30 @@
 .root {
-  background-color: burlywood;
+    background-color: burlywood;
 }
 
+.hpanel {
+    margin-left: auto;
+    margin-right: auto;
+}
 
+.table {
+    border: 2px solid Green;
+    background-color: white;
+    margin-left: 2%;
+    margin-right: auto;
+    width: 95%;
+    height: 300px;
+}
+
+.pager {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .gwt-Button {
-  height: 60px;
-  width: 100px;
-  color: green;
+    height: 60px;
+    width: 120px;
+    color: green;
+    font-weight: bold;
+    font-size: 200%;
 }

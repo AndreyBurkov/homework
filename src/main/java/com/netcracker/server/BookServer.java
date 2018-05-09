@@ -5,7 +5,6 @@ import com.netcracker.shared.Hello;
 import com.netcracker.shared.ParseXML;
 import jersey.repackaged.com.google.common.collect.Lists;
 
-import javax.servlet.annotation.WebServlet;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -13,15 +12,16 @@ import javax.ws.rs.Produces;
 import java.util.HashMap;
 import java.util.List;
 
-@Path("hellos")
-@WebServlet
-public class HelloResource {
+@Path("books")
+public class BookServer {
 
     private HashMap<String, Hello> database;
 
     private List<Book> bookList;
 
-    public HelloResource() {
+    public BookServer() {
+        bookList = ParseXML.getBooks();
+
         database = new HashMap<>();
         Hello helloRonan = new Hello("1", "Ronan");
         Hello helloJohn = new Hello("2", "John");
@@ -44,9 +44,8 @@ public class HelloResource {
 
     @GET
     @Produces("application/json")
-    @Path("/books")
+    @Path("/all")
     public List<Book> getBooks() {
-        bookList = ParseXML.getBooks();
         return bookList;
     }
 

@@ -5,6 +5,6 @@
   <inherits name="org.fusesource.restygwt.RestyGWT"/>
 
   <!-- Specify the path to any remote services.                   -->
-  <servlet path="/gwt/greet" class="com.netcracker.server.HelloResource" />
+  <servlet path="/gwt/greet" class="com.netcracker.server.BookServer" />
 
 </module>

@@ -18,33 +18,22 @@ public class ParseXML {
     private static File file = new File("c:/books.xml");
 
     public static List<Book> getBooks() {
-
-
         List<Book> bookList = new ArrayList<>();
-
-
         try {
-
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document document = builder.parse(file);
-
             NodeList bookNodeList = document.getElementsByTagName("Book");
-
             for (int i = 0; i < bookNodeList.getLength(); i++) {
                 if (bookNodeList.item(i).getNodeType() == Node.ELEMENT_NODE) {
                     Element bookElement = (Element) bookNodeList.item(i);
-
                     Integer id = Integer.parseInt(bookElement.getAttribute("id"));
                     String author = "";
                     String title = "";
                     Integer pagesCount = 0;
                     String publishDate = null;
                     String dateInBase = null;
-
-
                     NodeList childNodes = bookElement.getChildNodes();
-
                     for (int j = 0; j < childNodes.getLength(); j++) {
                         if (childNodes.item(j).getNodeType() == Node.ELEMENT_NODE) {
                             Element childElement = (Element) childNodes.item(j);
@@ -67,15 +56,10 @@ public class ParseXML {
                             }
                         }
                     }
-
                     Book book = new Book(id, author, title, pagesCount, publishDate, dateInBase);
-
                     bookList.add(book);
-
                 }
             }
-
-
         } catch (Exception e) {
             try {
                 PrintWriter writer = new PrintWriter("c:/errors.txt", "UTF-8");
@@ -86,7 +70,6 @@ public class ParseXML {
             }
             e.printStackTrace();
         }
-
         return bookList;
     }
 }

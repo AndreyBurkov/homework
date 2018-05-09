@@ -10,8 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import java.util.List;
 
-@Path("api/hellos")
-public interface HelloClient extends RestService {
+@Path("api/books")
+public interface BookClient extends RestService {
 
     @GET
     void getAll(MethodCallback<List<Hello>> hellos);
@@ -21,6 +21,6 @@ public interface HelloClient extends RestService {
     void getHello(@PathParam("id") String id, MethodCallback<Hello> hello);
 
     @GET
-    @Path("/books")
+    @Path("/all")
     void getBooks(MethodCallback<List<Book>> books);
 }
