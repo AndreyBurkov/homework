@@ -5,23 +5,6 @@
 
 <web-app>
 
-<!--  &lt;!&ndash; Servlets &ndash;&gt;
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.netcracker.server.BookServerervlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/api</url-pattern>
-  </servlet-mapping>
-
-  &lt;!&ndash; Default page to serve &ndash;&gt;
-  <welcome-file-list>
-    <welcome-file>gwt.html</welcome-file>
-  </welcome-file-list>-->
-
-
     <servlet>
         <servlet-name>Jersey Servlet</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>

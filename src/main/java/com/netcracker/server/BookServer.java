@@ -1,46 +1,23 @@
 package com.netcracker.server;
 
 import com.netcracker.shared.Book;
-import com.netcracker.shared.Hello;
 import com.netcracker.shared.ParseXML;
-import jersey.repackaged.com.google.common.collect.Lists;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import java.util.HashMap;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Path("books")
 public class BookServer {
 
-    private HashMap<String, Hello> database;
 
-    private List<Book> bookList;
+    private static List<Book> bookList = ParseXML.getBooks();
 
     public BookServer() {
-        bookList = ParseXML.getBooks();
-
-        database = new HashMap<>();
-        Hello helloRonan = new Hello("1", "Ronan");
-        Hello helloJohn = new Hello("2", "John");
-        database.put(helloRonan.getId(), helloRonan);
-        database.put(helloJohn.getId(), helloJohn);
     }
 
-    @GET
-    @Produces("application/json")
-    public List<Hello> getAll() {
-        return Lists.newArrayList(database.values());
-    }
-
-    @GET
-    @Produces("application/json")
-    @Path("/{id}")
-    public Hello get(@PathParam("id") String id) {
-        return database.get(id);
-    }
 
     @GET
     @Produces("application/json")
@@ -49,4 +26,84 @@ public class BookServer {
         return bookList;
     }
 
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/add")
+    public List<Book> addBook(Book book) {
+        bookList.add(book);
+        return bookList;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/del")
+    public List<Book> delBook(Book book) {
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).equals(book)) {
+                bookList.remove(i);
+                break;
+            }
+        }
+        return bookList;
+    }
+
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/sort")
+    public List<Book> getSortBooks(String column) {
+        if (column.equals("id")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getId().compareTo(o2.getId());
+                }
+            });
+        }
+        if (column.equals("author")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getAuthor().compareTo(o2.getAuthor());
+                }
+            });
+        }
+        if (column.equals("title")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getTitle().compareTo(o2.getTitle());
+                }
+            });
+        }
+        if (column.equals("pages")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getPagesCount().compareTo(o2.getPagesCount());
+                }
+            });
+        }
+        if (column.equals("publish")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getPublishDate().compareTo(o2.getPublishDate());
+                }
+            });
+        }
+        if (column.equals("date")) {
+            Collections.sort(bookList, new Comparator<Book>() {
+                @Override
+                public int compare(Book o1, Book o2) {
+                    return o1.getDateInBase().compareTo(o2.getDateInBase());
+                }
+            });
+        }
+        return bookList;
+    }
 }
+

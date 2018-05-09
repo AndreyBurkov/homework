@@ -3,6 +3,8 @@ package com.netcracker.shared;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Book {
 
     private Integer id;
@@ -91,5 +93,24 @@ public class Book {
                 ", publishDate='" + publishDate + '\'' +
                 ", dateInBase='" + dateInBase + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return Objects.equals(id, book.id) &&
+                Objects.equals(author, book.author) &&
+                Objects.equals(title, book.title) &&
+                Objects.equals(pagesCount, book.pagesCount) &&
+                Objects.equals(publishDate, book.publishDate) &&
+                Objects.equals(dateInBase, book.dateInBase);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, author, title, pagesCount, publishDate, dateInBase);
     }
 }
