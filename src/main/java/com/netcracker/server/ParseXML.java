@@ -1,5 +1,6 @@
-package com.netcracker.shared;
+package com.netcracker.server;
 
+import com.netcracker.shared.Book;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ParseXML {
 
-    private static File file = new File("c:/books.xml");
+    private static File file = new File("books.xml");
 
     public static List<Book> getBooks() {
         List<Book> bookList = new ArrayList<>();

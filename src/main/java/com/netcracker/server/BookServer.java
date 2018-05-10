@@ -1,7 +1,6 @@
 package com.netcracker.server;
 
 import com.netcracker.shared.Book;
-import com.netcracker.shared.ParseXML;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
